@@ -1,10 +1,10 @@
----
+﻿---
 import Layout from "../layouts/Layout.astro";
 import Intro from "../components/Intro.astro";
-
-
+import GithubActivity from "../components/GithubActivity.astro";
+import Experience from "../components/Experience.astro";
 import { profile } from "../data/profile";
 ---
 <Layout title={`${profile.name} — Designer & Developer`} description="UI/UX designer and fullstack developer building web and Android apps. Founder of Fixora Studio, creator of Nao, Fixopos, and Kolkit.">
-  <main><Intro /></main>
+  <main><Intro /><GithubActivity /><Experience /></main>
 </Layout>

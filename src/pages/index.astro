@@ -1,12 +1,10 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Aditiya Ramadhani's portfolio." />
-    <title>Aditiya Ramadhani — Portfolio</title>
-  </head>
-  <body>
-    <main><h1>Aditiya Ramadhani</h1><p>Designer &amp; Developer</p></main>
-  </body>
-</html>
+---
+import Layout from "../layouts/Layout.astro";
+import Intro from "../components/Intro.astro";
+
+
+import { profile } from "../data/profile";
+---
+<Layout title={`${profile.name} — Designer & Developer`} description="UI/UX designer and fullstack developer building web and Android apps. Founder of Fixora Studio, creator of Nao, Fixopos, and Kolkit.">
+  <main><Intro /></main>
+</Layout>

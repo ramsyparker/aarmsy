@@ -1,20 +1,42 @@
 ---
-import { Image } from "astro:assets";
+import ProjectLink from "./ProjectLink";
+import DotBackground from "./DotBackground.astro";
+import InlineTooltip from "./InlineTooltip";
+import { getImage, Image } from "astro:assets";
 import { profile } from "../data/profile";
+
+const studio = profile.studio.preview
+  ? {
+      ...profile.studio,
+      preview: (await getImage({
+        src: profile.studio.preview,
+        width: 560,
+        height: 350,
+        quality: "mid",
+      })).src,
+      previewOptimized: true,
+    }
+  : profile.studio;
 ---
 <section class="intro" aria-labelledby="profile-name">
+  <DotBackground />
   <div class="content">
     <header class="identity">
-      <div class="avatar"><Image src={profile.photo} alt="" width={56} height={56} quality="mid" /></div>
+      <div class="avatar">
+        {profile.photo ? <Image src={profile.photo} alt="" width={56} height={56} quality="mid" /> :
+          <svg viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="21" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M13 47v-5c0-8 7-13 15-13s15 5 15 13v5" stroke="currentColor" stroke-width="1.5"/></svg>}
+      </div>
       <div><h1 id="profile-name">{profile.name}</h1><p class="role">{profile.role}</p></div>
     </header>
-    <p class="bio">I design and build <strong>Web and Android apps</strong>.
-      I'm the founder of <a href={profile.studio.url}>{profile.studio.name}</a>,
-      and my projects include <a href={profile.projects[0].url}>{profile.projects[0].name}</a>
-      and <a href="/projects">other projects</a>, sharing the journey on
-      <a href={profile.instagram.url}>{profile.instagram.handle}</a>.
+    <p class="bio">
+      I design and build <strong>Web and Android apps</strong>.
+      I’m the founder of <ProjectLink project={studio} client:load />, and my projects include{" "}<ProjectLink project={profile.projects[0]} client:load />{" "}and{" "}<a class="other-projects" href="/projects"><span class="project-stack" aria-hidden="true">{profile.projects.slice(1).map(project => <span class="stack-icon"><img src={project.icon} alt="" width="18" height="18" /></span>)}</span><span>other projects</span></a>, sharing the journey on{" "}<InlineTooltip client:load className="instagram" href={profile.instagram.url} label={profile.instagram.handle} icon="/icons/instagram.svg" />.
     </p>
-    <p class="workflow">I build with {profile.tools.map(tool => <a href={tool.url}>{tool.name}{" "}</a>)} AI, from the first idea to design and code.</p>
+    <p class="workflow">
+      I build with{" "}<span class="tools" aria-label="AI tools">
+        {profile.tools.map((tool) => <InlineTooltip client:load href={tool.url} label={tool.name} icon={tool.icon} />)}
+      </span>{" "}<span>AI, from the first idea to design and code.</span>
+    </p>
   </div>
 </section>
 <style>

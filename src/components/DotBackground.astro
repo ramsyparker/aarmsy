@@ -1,0 +1,35 @@
+---
+/**
+ * Decorative background. The parent must use position: relative,
+ * isolation: isolate, and overflow: hidden.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={["dot-field", className]} aria-hidden="true"></div>
+
+<style>
+  /* Dot field — light */
+  .dot-field {
+    pointer-events: none; position: absolute; z-index: -1;
+    inset: -110px -100px; opacity: .5; transform: rotate(-8deg);
+    background-image: radial-gradient(circle, #c8c8c8 1.35px, transparent 1.7px);
+    background-size: 9px 9px;
+    mask-image:
+      radial-gradient(ellipse 48% 18% at 35% 35%, #000 10%, transparent 100%),
+      radial-gradient(ellipse 44% 23% at 65% 75%, #000 5%, transparent 100%);
+  }
+
+  /* Dot field — dark */
+  :global(.dark) .dot-field {
+    opacity: .18;
+    background-image: radial-gradient(circle, #606060 1.25px, transparent 1.7px);
+  }
+
+  @media (max-width: 37.5rem) {
+    .dot-field { opacity: .3; }
+  }
+</style>

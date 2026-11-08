@@ -1,0 +1,25 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+import { profile } from "../data/profile";
+---
+<Layout title={`Projects — ${profile.name}`}>
+  <main>
+    <a class="back" href="/">← Back to home</a>
+    <h1>Projects</h1>
+    <ul>{profile.projects.map(project => <li><a href={project.url} target="_blank" rel="noopener noreferrer"><img src={project.icon} alt="" width="32" height="32" /><span><strong>{project.name}</strong><small>{new URL(project.url).hostname}</small></span><span class="arrow" aria-hidden="true">↗</span></a></li>)}</ul>
+  </main>
+</Layout>
+<style>
+  main { max-width: 864px; margin-inline: auto; padding: 48px 20px; font-family: Arial, sans-serif; }
+  .back { color: #737373; font-size: 14px; }
+  h1 { font-size: 28px; font-weight: 600; margin-block: 28px 20px; }
+  ul { list-style: none; padding: 0; display: grid; gap: 12px; }
+  li a { display: flex; align-items: center; gap: 14px; padding: 18px; border: 1px solid #eaeaea; border-radius: 14px; }
+  a { color: #202020; text-decoration: none; }
+  a:focus-visible { outline: 2px solid #777; outline-offset: 4px; }
+  li a:hover { background: #fafafa; }
+  img { object-fit: contain; }
+  strong { display: block; font-weight: 500; }
+  small { display: block; color: #737373; margin-top: 4px; overflow-wrap: anywhere; }
+  .arrow { margin-inline-start: auto; }
+</style>

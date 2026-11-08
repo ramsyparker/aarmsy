@@ -1,0 +1,33 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Portfolio", description = "A personal portfolio." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+  </body>
+</html>
+
+<script>
+  import Lenis from "lenis";
+
+  const lenis = new Lenis({ autoRaf: true });
+  window.addEventListener("pagehide", () => lenis.destroy(), { once: true });
+</script>

@@ -1,0 +1,133 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  /* Slightly deeper than default shadcn dark for portfolio feel */
+  --background: oklch(0.09 0 0);
+  --foreground: oklch(0.94 0 0);
+  --card: oklch(0.13 0 0);
+  --card-foreground: oklch(0.94 0 0);
+  --popover: oklch(0.13 0 0);
+  --popover-foreground: oklch(0.94 0 0);
+  --primary: oklch(0.90 0 0);
+  --primary-foreground: oklch(0.13 0 0);
+  --secondary: oklch(0.17 0 0);
+  --secondary-foreground: oklch(0.94 0 0);
+  --muted: oklch(0.17 0 0);
+  --muted-foreground: oklch(0.52 0 0);
+  --accent: oklch(0.17 0 0);
+  --accent-foreground: oklch(0.94 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.45 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100vh;
+    transition: background-color 180ms ease, color 180ms ease;
+  }
+}
+
+html.dark { color-scheme: dark; }
+html:not(.dark) { color-scheme: light; }
+
+/* Inline React tooltip triggers inside the Astro intro. */
+.intro astro-island { display: inline; }
+.intro astro-island:has(.instagram) { display: inline-flex; position: relative; vertical-align: middle; z-index: 1; }
+.intro astro-island:has(.instagram):hover,
+.intro astro-island:has(.instagram):focus-within { z-index: 4; }
+.intro .instagram { display: inline-grid; place-items: center; width: var(--inline-icon-size); height: var(--inline-icon-size); border: 1.5px solid var(--icon-border); border-radius: 32%; background: #fff; vertical-align: middle; }
+.intro .instagram img { display: block; width: var(--inline-logo-size); height: var(--inline-logo-size); object-fit: contain; }
+.intro .tools { display: inline-flex; align-items: center; gap: 0; vertical-align: middle; margin-inline: 5px; }
+.intro .tools astro-island { display: inline-flex; position: relative; vertical-align: middle; z-index: 1; }
+.intro .tools astro-island:nth-child(1) { z-index: 3; }
+.intro .tools astro-island:nth-child(2) { z-index: 2; }
+.intro .tools astro-island + astro-island { margin-inline-start: -5px; }
+.intro .tool { display: inline-grid; place-items: center; width: var(--inline-icon-size); height: var(--inline-icon-size); border: 1.5px solid var(--icon-border); border-radius: 32%; background: #fff; color: #202020; }
+.intro .tool img { display: block; width: var(--inline-logo-size); height: var(--inline-logo-size); object-fit: contain; }
+.intro .instagram:focus-visible, .intro .tool:focus-visible { outline: 2px solid var(--foreground); outline-offset: 2px; }
+.intro .tools astro-island:focus-within { z-index: 4; }
+html.dark .intro .instagram { background: #fff; border-color: var(--icon-border); }
+html.dark .intro .tool { background: #fff; border-color: var(--icon-border); color: #202020; }
+@media (hover: hover) and (pointer: fine) { .intro .tools astro-island:hover { z-index: 4; } }
+@media (max-width: 37.5rem) { .intro .tools { margin-inline: 4px; } .intro .tool { width: var(--inline-icon-size); height: var(--inline-icon-size); border-width: 1.5px; border-radius: 32%; } .intro .tool img { width: 19px; height: 19px; } }
+@media (forced-colors: active) { .intro .instagram:focus-visible, .intro .tool:focus-visible { outline-color: Highlight; } }
+
+
+:root { --icon-border: #e5e5e5; }
+html.dark { --icon-border: #494949; }
+
+/* Shared dimensions keep inline logos consistent across text sizes and islands. */
+.intro {
+  --inline-icon-size: 29px;
+  --inline-logo-size: 19px;
+}
+.intro .project-link-icon,
+.intro .stack-icon,
+.intro .instagram img,
+.intro .tool { box-sizing: border-box; }
+@media (max-width: 37.5rem) {
+  .intro { --inline-icon-size: 28px; --inline-logo-size: 18px; }
+  .intro .tools astro-island + astro-island { margin-inline-start: -4px; }
+  .intro .tool img { width: var(--inline-logo-size); height: var(--inline-logo-size); }
+}
